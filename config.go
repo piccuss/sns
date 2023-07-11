@@ -13,7 +13,7 @@ type Config struct {
 }
 
 var config Config
-
+	
 // LoadConfig from local config json file
 func LoadConfig() {
 	jsc, err := ioutil.ReadFile("config.json")

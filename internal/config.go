@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"encoding/json"
@@ -7,16 +7,16 @@ import (
 )
 
 type Config struct {
-	StockCodes []string `json:"stock_codes"`
-	AlarmTime []string `json:"alarm_time"`
-	StaggingTipsOn bool `json:"stagging_tips_on"`
+	StockCodes     []string `json:"stock_codes"`
+	AlarmTime      []string `json:"alarm_time"`
+	StaggingTipsOn bool     `json:"stagging_tips_on"`
 }
 
 var config Config
-	
+
 // LoadConfig from local config json file
 func LoadConfig() {
-	jsc, err := ioutil.ReadFile("config.json")
+	jsc, err := ioutil.ReadFile("../config/config.json")
 	if err != nil {
 		log.Fatal("read config.json error", err)
 	}
@@ -24,5 +24,5 @@ func LoadConfig() {
 	if err != nil {
 		log.Fatal("unmarshal config.json error", err)
 	}
-	log.Println("load config:",config )
+	log.Println("load config:", config)
 }

@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ type Stock struct {
 	ChgR  float64
 }
 
-func (s Stock) String() string{
+func (s Stock) String() string {
 	return fmt.Sprintf("name=%s, code=%s, price=%.3f, chgr=%.2f%%, chg=%.3f", s.Name, s.Code, s.Price, s.ChgR, s.Chg)
 }
 

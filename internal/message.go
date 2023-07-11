@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"fmt"
@@ -16,7 +16,7 @@ const (
 	pushUrl = "https://sc.ftqq.com/SCU150195T2c5855e7da9b91fef1774a40de01c2cd5fffb1ee24c03.send"
 )
 
-//Send message to remote server
+// Send message to remote server
 func (m Message) Push() {
 	form := make(url.Values)
 	form.Set("text", m.Text)

@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"log"
@@ -12,8 +12,4 @@ func _logInit() {
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
 	log.SetPrefix("[SNS]")
 	log.Println("log style init end.")
-}
-
-func main() {
-	Start()
 }

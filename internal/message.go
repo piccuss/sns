@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"sns/internal/core"
 )
 
 type Message struct {
@@ -30,7 +31,7 @@ func (m Message) Push() {
 	log.Printf("message push resp: %s", body)
 }
 
-func NewMessage(stocks []Stock) Message {
+func NewMessage(stocks []core.Stock) Message {
 	var text, desp string
 	for i := 0; i < len(stocks); i++ {
 		text += fmt.Sprintf("%s:%.2f%% ", stocks[i].Name, stocks[i].ChgR)

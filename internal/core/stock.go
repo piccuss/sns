@@ -1,8 +1,9 @@
-package internal
+package core
 
 import (
 	"fmt"
 	"log"
+	"sns/utils"
 	"strings"
 )
 
@@ -34,9 +35,9 @@ func ParseStocks(rowData string, codes []string) []Stock {
 }
 
 func newStock(code string, values []string) Stock {
-	priceY, price := ParseFloat64(values[2]), ParseFloat64(values[3])
-	chg := Decimal(price - priceY)
-	chgr := Decimal((price - priceY) / price * 100)
+	priceY, price := utils.ParseFloat64(values[2]), utils.ParseFloat64(values[3])
+	chg := utils.ConvertToFixDecimal(price - priceY)
+	chgr := utils.ConvertToFixDecimal((price - priceY) / price * 100)
 	return Stock{
 		Name:  values[0],
 		Code:  code,

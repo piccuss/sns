@@ -16,7 +16,7 @@ var config Config
 
 // LoadConfig from local config json file
 func LoadConfig() {
-	jsc, err := ioutil.ReadFile("../config/config.json")
+	jsc, err := ioutil.ReadFile("../configs/config.json")
 	if err != nil {
 		log.Fatal("read config.json error", err)
 	}

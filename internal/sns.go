@@ -4,6 +4,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"sns/internal/core"
+	"sns/utils"
 	"strings"
 	"time"
 )
@@ -47,10 +49,10 @@ func doProcess(codes []string, jobId string) {
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
-	bodyStr := ConvertByte2String(body, GB18030)
+	bodyStr := utils.ConvertByte2String(body, utils.GB18030)
 	log.Printf("job[%s] get stock row data:\n%s", jobId, bodyStr)
 	//parse body
-	stocks := ParseStocks(bodyStr, codes)
+	stocks := core.ParseStocks(bodyStr, codes)
 	log.Println("get stocks: ", stocks)
 	//push
 	NewMessage(stocks).Push()
@@ -62,7 +64,7 @@ func getNextTick(alarmTime, jobId string) <-chan time.Time {
 	if len(ts) != 2 {
 		log.Fatalf("alarmTime %s is invalid", alarmTime)
 	}
-	th, tm := ParseInt(ts[0]), ParseInt(ts[1])
+	th, tm := utils.ParseInt(ts[0]), utils.ParseInt(ts[1])
 	tt := time.Date(now.Year(), now.Month(), now.Day(), th, tm, 0, 0, ctsZone)
 	log.Printf("job[%s] next tick time: %s", jobId, tt)
 	d := tt.Sub(now)

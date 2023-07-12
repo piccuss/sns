@@ -1,10 +1,9 @@
-package test
+package internal
 
 import (
-	"sns/internal"
 	"testing"
 )
 
 func TestLoadConfig(t *testing.T) {
-	internal.LoadConfig()
+	loadConfig("../configs/config.json")
 }

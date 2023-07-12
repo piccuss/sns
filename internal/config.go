@@ -3,26 +3,24 @@ package internal
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
+	"sns/internal/log"
 )
 
 type Config struct {
-	StockCodes     []string `json:"stock_codes"`
-	AlarmTime      []string `json:"alarm_time"`
-	StaggingTipsOn bool     `json:"stagging_tips_on"`
+	StockCodes []string `json:"stock_codes"`
+	AlarmTime  []string `json:"alarm_time"`
 }
 
-var config Config
-
-// LoadConfig from local config json file
-func LoadConfig() {
-	jsc, err := ioutil.ReadFile("../configs/config.json")
+func loadConfig(configPath string) Config {
+	configStr, err := ioutil.ReadFile(configPath)
 	if err != nil {
-		log.Fatal("read config.json error", err)
+		log.Sugar().Fatalf("read config file failed, configPath=%s, ", configPath, err)
 	}
-	err = json.Unmarshal(jsc, &config)
+	var config Config
+	err = json.Unmarshal(configStr, &config)
 	if err != nil {
-		log.Fatal("unmarshal config.json error", err)
+		log.Sugar().Fatalf("config parse json fialed. config=%s", configStr)
 	}
-	log.Println("load config:", config)
+	log.Sugar().Infof("load config success. config=%s", config)
+	return config
 }

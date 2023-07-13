@@ -3,5 +3,5 @@ package main
 import "sns/internal"
 
 func main() {
-	internal.Start()
+	internal.LauchSns("../configs/config.json")
 }

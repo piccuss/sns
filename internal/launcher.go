@@ -1,10 +1,11 @@
 package internal
 
-// 启动sns服务
+import (
+	_ "sns/internal/datasource"
+)
+
 func LauchSns(configPath string) {
-	//加载sns配置
 	config := loadConfig(configPath)
-	//启动sns任务
 	startService(config)
 }
 

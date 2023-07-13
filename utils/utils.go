@@ -48,3 +48,7 @@ func ConvertToFixDecimal(value float64) float64 {
 	value, _ = strconv.ParseFloat(fmt.Sprintf("%.3f", value), 64)
 	return value
 }
+
+func TypeOf(v interface{}) string {
+	return fmt.Sprintf("%T", v)
+}

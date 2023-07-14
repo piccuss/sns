@@ -10,14 +10,20 @@ const XUEQIU_API = ""
 type XueqiuDataSource struct {
 }
 
-func (xq XueqiuDataSource) SupportBatchFetch() bool {
+func (xq XueqiuDataSource) supportBatchFetch() bool {
 	return false
 }
 
-func (xq XueqiuDataSource) FetchData(code string) core.Stock {
+func (xq XueqiuDataSource) fetchData(code string) core.Stock {
 	log.Sugar().Infof("FetchData")
-	//TODO
+	//TODO implement real method
 	return core.Stock{}
+}
+
+func (xq XueqiuDataSource) fetchBatchData(codes []string) []core.Stock {
+	log.Sugar().Infof("FetchBatchData")
+	//TODO implement real method
+	return []core.Stock{}
 }
 
 func init() {

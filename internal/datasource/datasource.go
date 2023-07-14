@@ -38,3 +38,7 @@ func registerStockDataSource(name string, datasource StockDataSource) {
 	stockDataSources[name] = datasource
 	log.Sugar().Infof("add stockDataSource, name=%s", name)
 }
+
+func GetStockDataSource(name string) StockDataSource {
+	return stockDataSources[name]
+}

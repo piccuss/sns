@@ -2,24 +2,24 @@ package internal
 
 import (
 	"sns/internal/datasource"
-	"sns/internal/log"
+	"sns/internal/pkg"
 	"time"
 )
 
 func LauchSns(configPath string) {
-	config := loadConfig(configPath)
+	config := pkg.LoadConfig(configPath)
 	startService(config)
 }
 
-func startService(config Config) {
+func startService(config pkg.Config) {
 	datasource := datasource.GetStockDataSource(config.StockDataSource)
 	if datasource == nil {
-		log.Sugar().Fatalf("getStockDataSource is nil. name=%s", config.StockDataSource)
+		pkg.Sugar().Fatalf("getStockDataSource is nil. name=%s", config.StockDataSource)
 	}
-	log.Sugar().Infof("use StockDataSource: %s", config.StockDataSource)
+	pkg.Sugar().Infof("use StockDataSource: %s", config.StockDataSource)
 
-	createCronJob(config, datasource)
-	log.Sugar().Infof("created cron job, just wait for time up!")
+	createAlarmCronJob(config, datasource)
+	pkg.Sugar().Infof("created alarm cron job, just wait for time up!")
 
 	for {
 		time.Sleep(time.Second)

@@ -1,9 +1,8 @@
-package internal
+package pkg
 
 import (
 	"encoding/json"
 	"io/ioutil"
-	"sns/internal/log"
 )
 
 type Config struct {
@@ -12,20 +11,20 @@ type Config struct {
 	StockDataSource string   `json:"stock_data_srouce"`
 }
 
-func loadConfig(configPath string) Config {
+func LoadConfig(configPath string) Config {
 	configStr, err := ioutil.ReadFile(configPath)
 	if err != nil {
-		log.Sugar().Fatalf("read config file failed, configPath=%s, ", configPath, err)
+		Sugar().Fatalf("read config file failed, configPath=%s, ", configPath, err)
 	}
 	var config Config
 	err = json.Unmarshal(configStr, &config)
 	if err != nil {
-		log.Sugar().Fatalf("config parse json fialed. config=%s", configStr)
+		Sugar().Fatalf("config parse json fialed. config=%s", configStr)
 	}
 	if ok := checkConfigValid(config); !ok {
-		log.Sugar().Fatalf("config is invalid. config=%s", config)
+		Sugar().Fatalf("config is invalid. config=%s", config)
 	}
-	log.Sugar().Infof("load config success. config=%s", config)
+	Sugar().Infof("load config success. config=%s", config)
 	return config
 }
 

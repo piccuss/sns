@@ -2,7 +2,6 @@ package internal
 
 import (
 	"sns/internal/datasource"
-	_ "sns/internal/datasource"
 	"sns/internal/log"
 )
 
@@ -18,5 +17,7 @@ func startService(config Config) {
 		log.Sugar().Fatalf("getStockDataSource is nil. name=%s", config.StockDataSource)
 	}
 	//启动cron任务
+	//TODO
 	//等待
+	//TODO
 }

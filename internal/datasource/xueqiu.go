@@ -16,6 +16,7 @@ func (xq XueqiuDataSource) SupportBatchFetch() bool {
 
 func (xq XueqiuDataSource) FetchData(code string) core.Stock {
 	log.Sugar().Infof("FetchData")
+	//TODO
 	return core.Stock{}
 }
 

@@ -10,8 +10,12 @@ const XUEQIU_API = ""
 type XueqiuDataSource struct {
 }
 
-func (xq XueqiuDataSource) StockDataFetcher() core.Stock {
-	log.Sugar().Infof("StockDataFetcher")
+func (xq XueqiuDataSource) SupportBatchFetch() bool {
+	return false
+}
+
+func (xq XueqiuDataSource) FetchData(code string) core.Stock {
+	log.Sugar().Infof("FetchData")
 	return core.Stock{}
 }
 

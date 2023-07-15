@@ -17,14 +17,20 @@ func createAlarmCronJob(config pkg.Config) {
 		})
 		pkg.Sugar().Infof("alarmCronJob created, time=%s", time)
 	}
+	c.Start()
 }
 
 func invokeAlaramProc(config pkg.Config) {
 	pkg.Sugar().Infof("invokeAlaramProc...")
-	stockData := datasource.FetchStockData(config)
-	err := notify.SendEmail(config, stockData)
+	stockData, err := datasource.FetchStockData(config.StockDataSource, config.StockCodes)
+	if err != nil {
+		pkg.Sugar().Errorf("fetchStockData failed. err=%s", &err)
+		return
+	}
+	err = notify.SendEmail(config.Reciever, config.NotifyVendor, stockData)
 	if err != nil {
 		pkg.Sugar().Errorf("sendEmail failed. err=%s", &err)
+		return
 	}
 	pkg.Sugar().Infof("endAlaramProc...")
 }

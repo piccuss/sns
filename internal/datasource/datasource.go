@@ -1,11 +1,15 @@
 package datasource
 
-import "sns/internal/pkg"
+import (
+	"errors"
+	"fmt"
+	"sns/internal/pkg"
+)
 
 type StockDataSource interface {
 	supportBatchFetch() bool
-	fetchData(code string) pkg.Stock
-	fetchBatchData(codes []string) []pkg.Stock
+	fetchData(code string) (pkg.Stock, error)
+	fetchBatchData(codes []string) ([]pkg.Stock, error)
 }
 
 var stockDataSources = make(map[string]StockDataSource)
@@ -19,15 +23,16 @@ func registerStockDataSource(name string, datasource StockDataSource) {
 	pkg.Sugar().Infof("add stockDataSource, name=%s", name)
 }
 
-func getStockDataSource(name string) StockDataSource {
-	return stockDataSources[name]
-}
+func FetchStockData(name string, codes []string) ([]pkg.Stock, error) {
+	stockDataSource, ok := stockDataSources[name]
 
-func FetchStockData(config pkg.Config) []pkg.Stock {
-	stockDataSource := getStockDataSource(config.StockDataSource)
+	if !ok {
+		return nil, errors.New(fmt.Sprintf("cannot find dataSource=%s, please check config.", name))
+	}
+
 	if stockDataSource.supportBatchFetch() {
-		return stockDataSource.fetchBatchData(config.StockCodes)
+		return stockDataSource.fetchBatchData(codes)
 	}
 	//TODO implement aysnc get
-	return []pkg.Stock{}
+	return []pkg.Stock{}, nil
 }

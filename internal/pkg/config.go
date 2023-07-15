@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 )
 
@@ -10,6 +11,12 @@ type Config struct {
 	AlarmTime       []string `json:"alarm_time"`
 	StockDataSource string   `json:"stock_data_srouce"`
 	Reciever        string   `json:"reciever"`
+	NotifyVendor    string   `json:"notify_vendor"`
+}
+
+func (s Config) String() string {
+	return fmt.Sprintf("{stockCodes=%s, alarmTime=%s, stockDataSource=%s, reciever=%s, notifyVendor=%s}",
+		s.StockCodes, s.AlarmTime, s.StockDataSource, s.Reciever, s.NotifyVendor)
 }
 
 func LoadConfig(configPath string) Config {

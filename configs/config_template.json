@@ -5,8 +5,7 @@
     "sh512800"
   ],
   "alarm_time": [
-    "10:30",
-    "16:00"
+    "*/5 * * * * *", "*/3 * * * * *"
   ],
   "stagging_tips_on": false,
   "stock_data_srouce": "xueqiu"

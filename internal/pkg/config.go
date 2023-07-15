@@ -9,6 +9,7 @@ type Config struct {
 	StockCodes      []string `json:"stock_codes"`
 	AlarmTime       []string `json:"alarm_time"`
 	StockDataSource string   `json:"stock_data_srouce"`
+	Reciever        string   `json:"reciever"`
 }
 
 func LoadConfig(configPath string) Config {

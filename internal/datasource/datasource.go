@@ -19,13 +19,14 @@ func registerStockDataSource(name string, datasource StockDataSource) {
 	pkg.Sugar().Infof("add stockDataSource, name=%s", name)
 }
 
-func GetStockDataSource(name string) StockDataSource {
+func getStockDataSource(name string) StockDataSource {
 	return stockDataSources[name]
 }
 
-func FetchStockData(codes []string, stockDataSource StockDataSource) []pkg.Stock {
+func FetchStockData(config pkg.Config) []pkg.Stock {
+	stockDataSource := getStockDataSource(config.StockDataSource)
 	if stockDataSource.supportBatchFetch() {
-		return stockDataSource.fetchBatchData(codes)
+		return stockDataSource.fetchBatchData(config.StockCodes)
 	}
 	//TODO implement aysnc get
 	return []pkg.Stock{}

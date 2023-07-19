@@ -8,8 +8,8 @@ import (
 
 type StockDataSource interface {
 	supportBatchFetch() bool
-	fetchData(code string) (pkg.Stock, error)
-	fetchBatchData(codes []string) ([]pkg.Stock, error)
+	fetchData(code string) (*pkg.Stock, error)
+	fetchBatchData(codes []string) ([]*pkg.Stock, error)
 }
 
 var stockDataSources = make(map[string]StockDataSource)
@@ -23,7 +23,7 @@ func registerStockDataSource(name string, datasource StockDataSource) {
 	pkg.Sugar().Infof("add stockDataSource, name=%s", name)
 }
 
-func FetchStockData(name string, codes []string) ([]pkg.Stock, error) {
+func FetchStockData(name string, codes []string) ([]*pkg.Stock, error) {
 	stockDataSource, ok := stockDataSources[name]
 
 	if !ok {
@@ -34,5 +34,5 @@ func FetchStockData(name string, codes []string) ([]pkg.Stock, error) {
 		return stockDataSource.fetchBatchData(codes)
 	}
 	//TODO implement aysnc get
-	return []pkg.Stock{}, nil
+	return []*pkg.Stock{}, nil
 }

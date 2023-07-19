@@ -17,7 +17,7 @@ func registerNotifiers(name string, notifier Notifier) {
 	pkg.Sugar().Infof("add notifier, name=%s", name)
 }
 
-func SendEmail(reciever, notifyVendor string, data []pkg.Stock) error {
+func SendEmail(reciever, notifyVendor string, data []*pkg.Stock) error {
 	//TODO implement sendEmail
 	return nil
 }
